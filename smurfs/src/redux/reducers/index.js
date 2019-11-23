@@ -5,8 +5,8 @@ import {
 } from "../actions/get-actions";
 
 export const initialState = {
-  smurfs: [],
-  isLoading: false
+  isLoading: false,
+  smurfs: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -16,7 +16,6 @@ const reducer = (state = initialState, action) => {
     case SMURF_LOAD_START:
       return {
         ...state,
-        smurfs: [action.payload],
         isLoading: true
       };
     case SMURF_LOAD_SUCCESS:
@@ -35,6 +34,9 @@ const reducer = (state = initialState, action) => {
         error: action.payload,
         isLoading: false
       };
+
+    default:
+      return state;
   }
 };
 
