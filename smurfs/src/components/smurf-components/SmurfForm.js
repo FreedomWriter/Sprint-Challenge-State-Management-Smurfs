@@ -35,8 +35,8 @@ const SmurfForm = props => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="center">
+      <form className="card" onSubmit={handleSubmit}>
         <input
           type="text"
           name="name"
