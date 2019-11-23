@@ -26,7 +26,8 @@ const SmurfForm = props => {
     props.postSmurf({
       name: newSmurfName,
       age: newSmurfAge,
-      height: newSmurfHeight
+      height: newSmurfHeight,
+      id: Date.now()
     });
     setNewSmurfName("");
     setNewSmurfName(null);
