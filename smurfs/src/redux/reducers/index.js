@@ -4,6 +4,12 @@ import {
   SMURF_LOAD_FAILURE
 } from "../actions/get-actions";
 
+import {
+  SMURF_POST_START,
+  SMURF_POST_SUCCESS,
+  SMURF_POST_FAILURE
+} from "../actions/post-actions";
+
 export const initialState = {
   isLoading: false,
   smurfs: []
@@ -19,8 +25,29 @@ const reducer = (state = initialState, action) => {
         isLoading: true
       };
     case SMURF_LOAD_SUCCESS:
+      //   console.log(
+      //     `redux: reducers: index,js: SMURF_LOAD_SUCCESS: action.payload: `,
+      //     action.payload
+      //   );
+      return {
+        ...state,
+        smurfs: action.payload,
+        isLoading: false
+      };
+    case SMURF_LOAD_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false
+      };
+    case SMURF_POST_START:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case SMURF_POST_SUCCESS:
       console.log(
-        `redux: reducers: index,js: SMURF_LOAD_SUCCESS: action.payload: `,
+        `redux: reducers: index,js: SMURF_POST_SUCCESS: action.payload: `,
         action.payload
       );
       return {
@@ -28,7 +55,11 @@ const reducer = (state = initialState, action) => {
         smurfs: action.payload,
         isLoading: false
       };
-    case SMURF_LOAD_FAILURE:
+    case SMURF_POST_FAILURE:
+      console.log(
+        `redux: reducers: index,js: SMURF_POST_FAILURE: action.payload: `,
+        action.payload
+      );
       return {
         ...state,
         error: action.payload,
