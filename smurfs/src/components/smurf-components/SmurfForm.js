@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { postSmurf } from "../../redux/actions/post-actions";
 
-const SmurfForm = props => {
-  console.log(`SmurfForm.js: props: `, props);
+const SmurfForm = () => {
   const [newSmurfName, setNewSmurfName] = useState("");
   const [newSmurfAge, setNewSmurfAge] = useState(null);
   const [newSmurfHeight, setNewSmurfHeight] = useState("");
+
+  const dispatch = useDispatch();
 
   const changeNameHandler = e => {
     setNewSmurfName(e.target.value);
@@ -23,12 +24,14 @@ const SmurfForm = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    props.postSmurf({
-      name: newSmurfName,
-      age: newSmurfAge,
-      height: newSmurfHeight,
-      id: Date.now()
-    });
+    dispatch(
+      postSmurf({
+        name: newSmurfName,
+        age: newSmurfAge,
+        height: `${newSmurfHeight}cm`,
+        id: Date.now()
+      })
+    );
     setNewSmurfName("");
     setNewSmurfName(null);
     setNewSmurfHeight(``);
@@ -36,7 +39,7 @@ const SmurfForm = props => {
 
   return (
     <div className="center">
-      <form className="card" onSubmit={handleSubmit}>
+      <form className="form-card" onSubmit={handleSubmit}>
         <input
           type="text"
           name="name"
@@ -57,17 +60,10 @@ const SmurfForm = props => {
           placeholder="Height"
           onChange={changeHeightHandler}
         />
-        <button>Submit!</button>
+        <button className="form-button">Submit!</button>
       </form>
     </div>
   );
 };
 
-const mapStateToProps = state => {
-  console.log(`SmurfForm.js: mapStateToProps: state: `, state);
-  return {
-    smurfs: state.smurfs
-  };
-};
-
-export default connect(mapStateToProps, { postSmurf })(SmurfForm);
+export default SmurfForm;

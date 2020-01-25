@@ -10,7 +10,13 @@ import {
   SMURF_POST_FAILURE
 } from "../actions/post-actions";
 
-export const initialState = {
+import {
+  SMURF_PUT_START,
+  SMURF_PUT_SUCCESS,
+  SMURF_PUT_FAILURE
+} from "../actions/put-actions";
+
+const initialState = {
   isLoading: false,
   smurfs: []
 };
@@ -58,6 +64,38 @@ const reducer = (state = initialState, action) => {
     case SMURF_POST_FAILURE:
       console.log(
         `redux: reducers: index,js: SMURF_POST_FAILURE: action.payload: `,
+        action.payload
+      );
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false
+      };
+    case SMURF_PUT_START:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case SMURF_PUT_SUCCESS:
+      console.log(
+        `redux: reducers: index,js: SMURF_PUT_SUCCESS: action.payload: `,
+        action.payload
+      );
+      const { payload } = action;
+      return {
+        ...state,
+        smurfs: state.smurfs.map(smurf => {
+          if (smurf.id === payload.id) {
+            return { ...smurf, payload };
+          } else {
+            return smurf;
+          }
+        }),
+        isLoading: false
+      };
+    case SMURF_PUT_FAILURE:
+      console.log(
+        `redux: reducers: index,js: SMURF_PUT_FAILURE: action.payload: `,
         action.payload
       );
       return {

@@ -1,22 +1,17 @@
 import React from "react";
-import { connect } from "react-redux";
-import { getSmurfs } from "../../redux/actions/get-actions";
-import SmurfCard from "./SmurfCard";
+import { useSelector } from "react-redux";
+import SmurfCard from "../smurf-card/SmurfCard";
 
-const SmurfList = props => {
+import { CardContainer } from "../smurf-card/SmurfCard.styles";
+
+const SmurfList = () => {
   // console.log(`SmurfList.js: props: `, props.smurfs);
+  const smurfs = useSelector(state => state.smurfs);
   return (
-    <div>
-      <SmurfCard list={props.smurfs} />
+    <div className="card-container">
+      <SmurfCard list={smurfs} />
     </div>
   );
 };
 
-const mapStateToProps = state => {
-  // console.log(`SmurfList.js: mapStateToProps: state: `, state);
-  return {
-    smurfs: state.smurfs
-  };
-};
-
-export default connect(mapStateToProps, { getSmurfs })(SmurfList);
+export default SmurfList;
